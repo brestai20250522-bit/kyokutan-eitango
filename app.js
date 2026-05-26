@@ -501,6 +501,7 @@
     ensureSpellState(word);
     const selectedChars = state.spell.selected.map((id) => state.spell.pool.find((item) => item.id === id)?.ch || "");
     const slots = state.spell.hint ? Array.from({ length: Array.from(word.w).length }, (_, i) => selectedChars[i] || "") : selectedChars;
+    const isDone = Boolean(state.answered?.done);
     return `
       <div class="spell-answer" aria-label="解答欄">
         ${slots.length === 0 ? '<button class="answer-slot is-empty" type="button" disabled>?</button>' : slots.map((ch, index) => {
@@ -508,6 +509,7 @@
           return `<button class="answer-slot ${ch ? "" : "is-empty"} ${status}" data-remove="${index}" type="button" ${state.answered?.done || !ch ? "disabled" : ""}>${escapeHtml(displayChar(ch))}</button>`;
         }).join("")}
       </div>
+      ${isDone ? "" : `
       <div class="letter-pool">
         ${state.spell.pool.map((item) => `
           <button class="letter-button" data-letter="${item.id}" type="button" ${state.spell.selected.includes(item.id) || state.answered?.done ? "disabled" : ""}>${escapeHtml(displayChar(item.ch))}</button>
@@ -518,6 +520,7 @@
         <button class="ghost-button" id="clearButton" type="button" ${state.answered?.done ? "disabled" : ""}>クリア</button>
         <button class="primary-button" id="answerButton" type="button" ${canSubmitSpell(word) && !state.answered?.done ? "" : "disabled"}>こたえる</button>
       </div>
+      `}
     `;
   }
 
