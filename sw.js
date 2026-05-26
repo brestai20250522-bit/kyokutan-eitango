@@ -1,8 +1,8 @@
-const CACHE_NAME = "kyokutan-pwa-v6";
+const CACHE_NAME = "kyokutan-pwa-v7";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=font-20260526",
+  "./styles.css?v=font-20260526b",
   "./app.js",
   "./manifest.webmanifest",
   "./data/words.js",
